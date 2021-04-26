@@ -147,13 +147,17 @@ class _TimePickerWidgetState extends State<TimePickerWidget> {
 
   /// pressed confirm widget
   void _onPressedConfirm() {
-    if (widget.onConfirm != null) {
-      DateTime now = DateTime.now();
-      DateTime dateTime = DateTime(
-          now.year, now.month, now.day, _currHour, _currMinute, _currSecond);
-      widget.onConfirm(dateTime, _calcSelectIndexList());
-    }
-    Navigator.pop(context);
+    DateTime now = DateTime.now();
+    DateTime dateTime = DateTime(
+      now.year,
+      now.month,
+      now.day,
+      _currHour,
+      _currMinute,
+      _currSecond,
+    );
+    widget.onConfirm?.call(dateTime, _calcSelectIndexList());
+    Navigator.pop(context, dateTime);
   }
 
   /// notify selected time changed

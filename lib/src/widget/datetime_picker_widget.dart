@@ -168,13 +168,12 @@ class _DateTimePickerWidgetState extends State<DateTimePickerWidget> {
 
   /// pressed confirm widget
   void _onPressedConfirm() {
-    if (widget.onConfirm != null) {
-      DateTime day = _baselineDate.add(Duration(days: _currDay));
-      DateTime dateTime = DateTime(
-          day.year, day.month, day.day, _currHour, _currMinute, _currSecond);
-      widget.onConfirm(dateTime, _calcSelectIndexList());
-    }
-    Navigator.pop(context);
+    DateTime day = _baselineDate.add(Duration(days: _currDay));
+    DateTime dateTime = DateTime(
+        day.year, day.month, day.day, _currHour, _currMinute, _currSecond);
+    widget.onConfirm?.call(dateTime, _calcSelectIndexList());
+
+    Navigator.pop(context, dateTime);
   }
 
   /// notify selected datetime changed

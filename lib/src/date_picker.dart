@@ -99,10 +99,7 @@ class DatePicker {
         pickerTheme: pickerTheme,
         onCancel: onCancel,
         onChange: onChange,
-        onConfirm: (DateTime date, List<int> indices) {
-          onConfirm?.call(date, indices);
-          Navigator.pop(context, date);
-        },
+        onConfirm: onConfirm,
         theme: Theme.of(context),
         barrierLabel:
             MaterialLocalizations.of(context).modalBarrierDismissLabel,
