@@ -38,7 +38,7 @@ class DatePicker {
   /// onClose: [DateVoidCallback] date picker closed event
   /// onChange: [DateValueCallback] selected date time changed event
   /// onConfirm: [DateValueCallback] pressed title confirm widget event
-  static void showDatePicker(
+  static Future<DateTime> showDatePicker(
     BuildContext context, {
     DateTime minDateTime,
     DateTime maxDateTime,
@@ -53,7 +53,7 @@ class DatePicker {
     DateValueCallback onConfirm,
     int minuteDivider = 1,
     bool onMonthChangeStartWithFirstDate = false,
-  }) {
+  }) async {
     // handle the range of datetime
     if (minDateTime == null) {
       minDateTime = DateTime.parse(DATE_PICKER_MIN_DATETIME);
@@ -86,7 +86,7 @@ class DatePicker {
       dateFormat = DateTimeFormatter.generateDateFormat(pickerMode);
     }
 
-    Navigator.push(
+    return await Navigator.push<DateTime>(
       context,
       new _DatePickerRoute(
         onMonthChangeStartWithFirstDate: onMonthChangeStartWithFirstDate,
@@ -99,7 +99,10 @@ class DatePicker {
         pickerTheme: pickerTheme,
         onCancel: onCancel,
         onChange: onChange,
-        onConfirm: onConfirm,
+        onConfirm: (DateTime date, List<int> indices) {
+          onConfirm(date, indices);
+          Navigator.pop(context, date);
+        },
         theme: Theme.of(context),
         barrierLabel:
             MaterialLocalizations.of(context).modalBarrierDismissLabel,
