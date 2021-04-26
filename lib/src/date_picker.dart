@@ -100,7 +100,7 @@ class DatePicker {
         onCancel: onCancel,
         onChange: onChange,
         onConfirm: (DateTime date, List<int> indices) {
-          onConfirm(date, indices);
+          onConfirm?.call(date, indices);
           Navigator.pop(context, date);
         },
         theme: Theme.of(context),
